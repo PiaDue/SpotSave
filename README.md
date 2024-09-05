@@ -25,8 +25,9 @@ A simple web application to save your favortie spots on a map
 ## Setup
 
 **db.json**
-- save this file in root directory of this project
-- example code: 
+- purpose: acts as a database
+- create a file called `db.json` in the root directory
+- example file: 
 ```json
 {
     "pins": [
