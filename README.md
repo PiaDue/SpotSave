@@ -48,3 +48,28 @@ export default tseslint.config({
   },
 })
 ```
+
+# db.json
+save this file in root directory of this project
+example code: 
+```json
+{
+    "pins": [
+        {
+            "lat": 52.532,
+            "lng": 13.392
+        },
+        {
+            "lat": 52.535,
+            "lng": 13.393
+        },
+        {
+            "lat": 52.55,
+            "lng": 13.399
+        }
+    ],
+    "config": {
+        "googleMapsApiKey": "yourAPI-Key"
+    }
+}
+```
