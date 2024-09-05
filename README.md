@@ -49,3 +49,10 @@ A simple web application to save your favortie spots on a map
     }
 }
 ```
+
+## Terminal Commands to run the project
+- `npm install` to install all dependencies
+
+run these commands in different terminals:
+- `npm run json-server` to start the json-server
+-  `npm run dev` to start the react app and the express server
