@@ -1,6 +1,7 @@
 // src/MapComponent.tsx
 import { useEffect, useState } from 'react';
-import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
+import { APIProvider, Map } from '@vis.gl/react-google-maps';
+import MapPin from './MapPin';
 import './App.css';
 
 const berlin = {
@@ -58,12 +59,11 @@ const MapComponent: React.FC = () => {
                         mapId={mapID}
                     >
                         {pins.map((pin, index) => (
-                            <AdvancedMarker
+                            <MapPin
                                 key={index}
-                                position={pin}
-                            >
-                                <Pin background={'orange'} borderColor={'red'} glyphColor={'red'} />
-                            </AdvancedMarker>
+                                pin={pin}
+                                index={index}
+                            />
                         ))}
                     </Map>
                 </div>
