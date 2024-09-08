@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AdvancedMarker, useAdvancedMarkerRef, Pin, InfoWindow } from '@vis.gl/react-google-maps';
+import { Marker, InfoWindow } from '@react-google-maps/api';
 import './App.css';
 
 interface MapPinProps {
@@ -8,22 +8,17 @@ interface MapPinProps {
 }
 
 const MapPin: React.FC<MapPinProps> = ({ pin, index }) => {
-    const [markerRef, marker] = useAdvancedMarkerRef();
     const [infoWindowShown, setInfoWindowShown] = useState(false);
-
 
     return (
         <>
-            <AdvancedMarker
+            <Marker
                 key={index}
-                ref={markerRef}
                 position={pin}
                 onClick={() => setInfoWindowShown(!infoWindowShown)}
-            >
-                <Pin background={'orange'} borderColor={'red'} glyphColor={'red'} />
-            </AdvancedMarker>
+            />
             {infoWindowShown && (
-                <InfoWindow anchor={marker} onCloseClick={() => setInfoWindowShown(false)}>
+                <InfoWindow position={pin} onCloseClick={() => setInfoWindowShown(false)}>
                     <p>Info</p>
                 </InfoWindow>
             )}
