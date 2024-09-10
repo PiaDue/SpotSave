@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 import './App.css';
 

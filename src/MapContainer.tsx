@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import React from "react";
+import { useLoadScript } from "@react-google-maps/api";
 import Map from './Map';
-import './App.css';
 
 interface MapContainerProps {
     apiKey: string;
