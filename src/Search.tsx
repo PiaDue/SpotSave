@@ -9,9 +9,21 @@ const Search: React.FC<SearchProps> = ({ setSpot }) => {
     const { ready, value, setValue, suggestions: { status, data }, clearSuggestions } = usePlacesAutocomplete();
     //console.log({ status, data }); // Uncomment to see the data structure in the console
 
+    /* TODO:  
+        - set marker at the selected location
+        - get details of the selected location
+    */
+
+    const handleSelect = async (val: string) => {
+        setValue(val, false);
+        clearSuggestions();
+        const result = await getGeocode({ address: val });
+        const { lat, lng } = getLatLng(result[0]);
+        setSpot({ lat, lng });
+    };
 
     return (
-        <Combobox className="combobox">
+        <Combobox onSelect={handleSelect} className="combobox">
             <ComboboxInput
                 className="combobox-input"
                 value={value}

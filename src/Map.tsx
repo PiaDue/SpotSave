@@ -14,6 +14,7 @@ interface MapProps {
 
 const Map: React.FC<MapProps> = ({ mapID }) => {
     const [pins, setPins] = useState<any[]>([]);
+    const [spot, setSpot] = useState<LatLngLiteral | null>(null);
     const [error, setError] = useState<string | null>(null);
     const mapRef = useRef<GoogleMap>();
     const berlinLatLng = useMemo<LatLngLiteral>(() => ({ lat: 52.52, lng: 13.4050, }), []);
@@ -40,7 +41,11 @@ const Map: React.FC<MapProps> = ({ mapID }) => {
 
     return (
         <>
-            <Search setSpot={(position: LatLngLiteral) => { }} />
+            <Search setSpot={(position: LatLngLiteral) => {
+                //console.log('Selected position:', position); // Uncomment to see the selected position in the console
+                setSpot(position);
+                mapRef.current?.panTo(position);
+            }} />
             <GoogleMap
                 zoom={10}
                 center={berlinLatLng}
