@@ -2,31 +2,41 @@ import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import MapPin from './MapPin';
 import Search from './Search';
+import SpotDetails from './SpotDetails';
 import './App.css';
 
 type LatLngLiteral = google.maps.LatLngLiteral;
-type DirectionsResult = google.maps.DirectionsResult;
 type MapOptions = google.maps.MapOptions;
 
 interface MapProps {
     mapID: string;
 }
 
+interface Pin {
+    position: LatLngLiteral;
+    placeID: string;
+}
+
 /* TODO:  
-        - show details of the selected location
-        - show details for places on click
+        - click on pin: show details, hilight pin
+        - reminder: need placeID 
 */
 
 const Map: React.FC<MapProps> = ({ mapID }) => {
-    const [pins, setPins] = useState<any[]>([]);
-    const [spot, setSpot] = useState<LatLngLiteral | null>(null);
+    const [pins, setPins] = useState<Pin[]>([]);
+    const [spot, setSpot] = useState<Pin | null>(null);
     const [error, setError] = useState<string | null>(null);
     const mapRef = useRef<GoogleMap>();
+
+    const [placesService, setPlacesService] = useState<google.maps.places.PlacesService | null>(null);
+    const onLoad = useCallback((map: GoogleMap) => {
+        mapRef.current = map;
+        const service = new google.maps.places.PlacesService(map as unknown as google.maps.Map);
+        setPlacesService(service);
+    }, []);
+
     const berlinLatLng = useMemo<LatLngLiteral>(() => ({ lat: 52.52, lng: 13.4050, }), []);
     const mapOptions = useMemo<MapOptions>(() => ({ mapId: mapID }), []);
-    const onLoad = useCallback((map) => (mapRef.current = map as unknown as GoogleMap), []);
-    const placesService = new google.maps.places.PlacesService(mapRef.current! as unknown as google.maps.Map);
-
     useEffect(() => {
         fetchPins();
     }, []);
@@ -47,9 +57,9 @@ const Map: React.FC<MapProps> = ({ mapID }) => {
 
     return (
         <>
-            <Search setSpot={(position: LatLngLiteral) => {
+            <Search setSpot={(position: LatLngLiteral, placeID: string) => {
                 //console.log('Selected position:', position); // Uncomment to see the selected position in the console
-                setSpot(position);
+                setSpot({ position, placeID });
                 mapRef.current?.panTo(position);
             }} />
             <GoogleMap
@@ -59,16 +69,17 @@ const Map: React.FC<MapProps> = ({ mapID }) => {
                 options={mapOptions}
                 onLoad={onLoad}
             >
-                {spot && <MapPin position={spot} color='red' size={40} />}
+
                 {pins.map((pin, index) => (
-                    <MapPin key={index} position={pin} />
+                    <MapPin key={index} position={pin.position} />
                 ))}
 
-                {/*show a place details pop over at the right*/}
-                {/* <div className="place-details">
-                    <h2>Place Details</h2>
-                    <p>Details</p>
-                </div> */}
+                {spot && (
+                    <MapPin position={spot.position} color='red' size={40} />
+                )}
+                {spot && placesService && (
+                    <SpotDetails service={placesService} placeID={spot.placeID} />
+                )}
 
             </GoogleMap>
         </>

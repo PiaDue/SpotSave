@@ -2,23 +2,20 @@ import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocom
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from "@reach/combobox";
 
 interface SearchProps {
-    setSpot: (postition: google.maps.LatLngLiteral) => void;
+    setSpot: (postition: google.maps.LatLngLiteral, placeID: string) => void;
 }
 
 const Search: React.FC<SearchProps> = ({ setSpot }) => {
     const { ready, value, setValue, suggestions: { status, data }, clearSuggestions } = usePlacesAutocomplete();
     //console.log({ status, data }); // Uncomment to see the data structure in the console
 
-    /* TODO:  
-        - get details of the selected location
-    */
-
     const handleSelect = async (val: string) => {
         setValue(val, false);
         clearSuggestions();
         const result = await getGeocode({ address: val });
+        const placeID = result[0].place_id;
         const { lat, lng } = getLatLng(result[0]);
-        setSpot({ lat, lng });
+        setSpot({ lat, lng }, placeID);
     };
 
     return (
