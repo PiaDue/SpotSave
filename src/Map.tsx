@@ -12,6 +12,11 @@ interface MapProps {
     mapID: string;
 }
 
+/* TODO:  
+        - show details of the selected location
+        - show details for places on click
+*/
+
 const Map: React.FC<MapProps> = ({ mapID }) => {
     const [pins, setPins] = useState<any[]>([]);
     const [spot, setSpot] = useState<LatLngLiteral | null>(null);
@@ -20,6 +25,7 @@ const Map: React.FC<MapProps> = ({ mapID }) => {
     const berlinLatLng = useMemo<LatLngLiteral>(() => ({ lat: 52.52, lng: 13.4050, }), []);
     const mapOptions = useMemo<MapOptions>(() => ({ mapId: mapID }), []);
     const onLoad = useCallback((map) => (mapRef.current = map as unknown as GoogleMap), []);
+    const placesService = new google.maps.places.PlacesService(mapRef.current! as unknown as google.maps.Map);
 
     useEffect(() => {
         fetchPins();
@@ -53,10 +59,17 @@ const Map: React.FC<MapProps> = ({ mapID }) => {
                 options={mapOptions}
                 onLoad={onLoad}
             >
-                {spot && <Marker position={spot} />}
+                {spot && <MapPin position={spot} color='red' size={40} />}
                 {pins.map((pin, index) => (
-                    <MapPin key={index} position={pin} index={index} />
+                    <MapPin key={index} position={pin} />
                 ))}
+
+                {/*show a place details pop over at the right*/}
+                {/* <div className="place-details">
+                    <h2>Place Details</h2>
+                    <p>Details</p>
+                </div> */}
+
             </GoogleMap>
         </>
     );
