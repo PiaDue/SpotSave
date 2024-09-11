@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
-import { GoogleMap } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 import MapPin from './MapPin';
 import Search from './Search';
 import './App.css';
@@ -53,8 +53,9 @@ const Map: React.FC<MapProps> = ({ mapID }) => {
                 options={mapOptions}
                 onLoad={onLoad}
             >
+                {spot && <Marker position={spot} />}
                 {pins.map((pin, index) => (
-                    <MapPin key={index} pin={pin} index={index} />
+                    <MapPin key={index} position={pin} index={index} />
                 ))}
             </GoogleMap>
         </>

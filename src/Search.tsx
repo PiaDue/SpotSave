@@ -10,7 +10,6 @@ const Search: React.FC<SearchProps> = ({ setSpot }) => {
     //console.log({ status, data }); // Uncomment to see the data structure in the console
 
     /* TODO:  
-        - set marker at the selected location
         - get details of the selected location
     */
 
