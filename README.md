@@ -6,8 +6,11 @@ A simple web application to save your favortie spots on a map
 
 ## Features & Ideas
 - [x]  Show a map
-- [ ]  Show pins on the map
-
+- [x]  Show pins on the map
+- [x]  search for a location + show it on the map
+- [x]  show location details
+- [ ]  create new pins
+- [ ]  Show the current location
 - [ ]  Add a pin to the map
 - [ ]  Give pins a name
 - [ ]  Show a details for each pin
@@ -25,30 +28,23 @@ A simple web application to save your favortie spots on a map
 ## Setup
 
 **db.json**
-- purpose: acts as a database
+- purpose: acts as a backend for the project 
 - create a file called `db.json` in the root directory
-- example file: 
+- file structure should look like this:
 ```json
 {
-    "pins": [
-        {
-            "lat": 52.532,
-            "lng": 13.392
-        },
-        {
-            "lat": 52.535,
-            "lng": 13.393
-        },
-        {
-            "lat": 52.55,
-            "lng": 13.399
-        }
-    ],
-    "config": {
-        "googleMapsApiKey": "yourAPI-Key"
+    "pins": [{
+        "position": {"lat": number, "lng": number},
+        "placeID": string
+    }],
+    "mapConfig": {
+        "googleMapsApiKey": string,
+        "mapID": string
     }
 }
 ```
+
+
 
 ## Terminal Commands to run the project
 - `npm install` to install all dependencies

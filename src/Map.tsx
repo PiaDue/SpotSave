@@ -18,8 +18,8 @@ interface Pin {
 }
 
 /* TODO:  
-        - click on pin: show details, hilight pin
-        - reminder: need placeID 
+        - click on pin: show details, highlight pin
+        - save spots to local storage -> show pin on map
 */
 
 const Map: React.FC<MapProps> = ({ mapID }) => {

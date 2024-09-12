@@ -19,7 +19,7 @@ const MapPin: React.FC<MapPinProps> = ({ position, color = 'green', size = 30 })
                 position={position}
                 onClick={() => setInfoWindowShown(!infoWindowShown)}
                 icon={{
-                    url: '/public/' + color + '-pin.svg',
+                    url: '/' + color + '-pin.svg',
                     scaledSize: new window.google.maps.Size(size, size),
                     origin: new window.google.maps.Point(0, 0),
                     anchor: new window.google.maps.Point(size / 2, size),
