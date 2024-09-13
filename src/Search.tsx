@@ -20,15 +20,23 @@ const Search: React.FC<SearchProps> = ({ setSpot }) => {
 
     return (
         <Combobox onSelect={handleSelect} className="combobox">
-            <ComboboxInput
-                className="combobox-input"
-                value={value}
-                onChange={(e) => {
-                    setValue(e.target.value);
-                }}
-                disabled={!ready}
-                placeholder="Search"
-            />
+            <div className="search-bar">
+                <ComboboxInput
+                    className="combobox-input"
+                    value={value}
+                    onChange={(e) => {
+                        setValue(e.target.value);
+                    }}
+                    disabled={!ready}
+                    placeholder="Search"
+                />
+                <button type="button" className="btn-close"
+                    disabled={!value}
+                    onClick={() => {
+                        setValue("");
+                    }}
+                />
+            </div>
             <ComboboxPopover>
                 <ComboboxList className="combobox-list">
                     {status === "OK" &&
@@ -37,7 +45,7 @@ const Search: React.FC<SearchProps> = ({ setSpot }) => {
                         ))}
                 </ComboboxList>
             </ComboboxPopover>
-        </Combobox>
+        </Combobox >
     );
 };
 
