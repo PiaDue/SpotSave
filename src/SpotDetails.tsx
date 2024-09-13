@@ -6,16 +6,16 @@ type PlaceResult = google.maps.places.PlaceResult;
 interface SpotDetailsProps {
     service: PlacesService;
     placeID: string;
+    handleClose: () => void;
 }
 
 /* TODO:
-        - x butoon to close
         - hide/show opening hours
         - display rating with graphics
         - show photos
 */
 
-const SpotDetails: React.FC<SpotDetailsProps> = ({ service, placeID }) => {
+const SpotDetails: React.FC<SpotDetailsProps> = ({ service, placeID, handleClose }) => {
     const [placeDetails, setPlaceDetails] = useState<PlaceResult | null>(null);
 
     const request = {
@@ -39,6 +39,7 @@ const SpotDetails: React.FC<SpotDetailsProps> = ({ service, placeID }) => {
             {placeDetails && (
                 <div>
                     <h3>{placeDetails.name}</h3>
+                    <button type="button" onClick={handleClose} className="btn-close position-absolute top-0 end-0 m-2" aria-label="Close"></button>
                     <p>{placeDetails.formatted_address}</p>
                     {placeDetails.website && <a href={placeDetails.website}>{placeDetails.website}</a>}
                     {placeDetails.rating && <p>Rating: {placeDetails.rating}/5</p>}
