@@ -75,7 +75,12 @@ body,
   z-index: 1000;
   background-color: #fff;
   border-radius: 5px;
-  padding: 20px 15px;
-  padding-top: 35px;
+  padding: 10px 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.place-details-container .btn {
+  font-size: 1.3rem;
+  color: rgb(93, 93, 93);
+  transition: background-color 0.3s, border-color 0.3s;
 }

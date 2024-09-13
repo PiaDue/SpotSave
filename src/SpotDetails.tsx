@@ -38,8 +38,15 @@ const SpotDetails: React.FC<SpotDetailsProps> = ({ service, placeID, handleClose
         <div className="place-details-container">
             {placeDetails && (
                 <div>
+                    <div className='d-flex justify-content-end'>
+                        <button type="button" className="btn " aria-label="Save">
+                            <i className="bi bi-pin-angle"></i>
+                        </button>
+                        <button type="button" onClick={handleClose} className="btn" aria-label="Close">
+                            <i className="bi bi-x-lg"></i>
+                        </button>
+                    </div>
                     <h3>{placeDetails.name}</h3>
-                    <button type="button" onClick={handleClose} className="btn-close position-absolute top-0 end-0 m-2" aria-label="Close"></button>
                     <p>{placeDetails.formatted_address}</p>
                     {placeDetails.website && <a href={placeDetails.website}>{placeDetails.website}</a>}
                     {placeDetails.rating && <p>Rating: {placeDetails.rating}/5</p>}

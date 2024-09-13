@@ -13,7 +13,7 @@ A simple web application to save your favortie spots on a map
 - [ ]  Show the current location
 - [ ]  Add a pin to the map
 - [ ]  Give pins a name
-- [ ]  Show a details for each pin
+- [x]  Show a details for each pin
 - [ ]  Group pins by category
 - [ ]  Group pins by city or country
 

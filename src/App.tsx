@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import MapContainer from './MapContainer';
 import './App.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const App: React.FC = () => {
   const [apiKey, setApiKey] = useState<string | null>(null);

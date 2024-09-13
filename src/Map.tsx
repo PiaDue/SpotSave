@@ -19,6 +19,11 @@ interface Pin {
 
 /* TODO:  
         - save spots to local storage -> show pin on map
+        - create collections
+        - save spots to collections 
+        - show collections on map
+        - show current location
+        - mobile view
 */
 
 const Map: React.FC<MapProps> = ({ mapID }) => {
