@@ -16,6 +16,9 @@ const Search: React.FC<SearchProps> = ({ setSpot }) => {
         const placeID = result[0].place_id;
         const { lat, lng } = getLatLng(result[0]);
         setSpot({ lat, lng }, placeID);
+
+        //console.log(result[0]); // Uncomment to see the selected place in the console
+        //console.log({ lat, lng }); // Uncomment to see the selected place in the console
     };
 
     return (

@@ -18,7 +18,6 @@ interface Pin {
 }
 
 /* TODO:  
-        - click on pin: show details, highlight pin
         - save spots to local storage -> show pin on map
 */
 
@@ -58,7 +57,6 @@ const Map: React.FC<MapProps> = ({ mapID }) => {
     return (
         <>
             <Search setSpot={(position: LatLngLiteral, placeID: string) => {
-                //console.log('Selected position:', position); // Uncomment to see the selected position in the console
                 setSpot({ position, placeID });
                 mapRef.current?.panTo(position);
             }} />
@@ -71,7 +69,7 @@ const Map: React.FC<MapProps> = ({ mapID }) => {
             >
 
                 {pins.map((pin, index) => (
-                    <MapPin key={index} position={pin.position} />
+                    <MapPin key={index} position={pin.position} setAsSpot={() => setSpot(pin)} />
                 ))}
 
                 {spot && (

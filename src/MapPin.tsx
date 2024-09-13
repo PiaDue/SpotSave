@@ -8,16 +8,16 @@ interface MapPinProps {
     position: LatLngLiteral;
     color?: string;
     size?: number;
+    setAsSpot?: () => void;
 }
 
-const MapPin: React.FC<MapPinProps> = ({ position, color = 'green', size = 30 }) => {
-    const [infoWindowShown, setInfoWindowShown] = useState(false);
+const MapPin: React.FC<MapPinProps> = ({ position, color = 'green', size = 30, setAsSpot }) => {
 
     return (
         <>
             <Marker
                 position={position}
-                onClick={() => setInfoWindowShown(!infoWindowShown)}
+                onClick={setAsSpot}
                 icon={{
                     url: '/' + color + '-pin.svg',
                     scaledSize: new window.google.maps.Size(size, size),
@@ -25,11 +25,6 @@ const MapPin: React.FC<MapPinProps> = ({ position, color = 'green', size = 30 })
                     anchor: new window.google.maps.Point(size / 2, size),
                 }}
             />
-            {infoWindowShown && (
-                <InfoWindow position={position} onCloseClick={() => setInfoWindowShown(false)}>
-                    <p>Info</p>
-                </InfoWindow>
-            )}
         </>
     );
 };
