@@ -74,7 +74,7 @@ const Map: React.FC<MapProps> = ({ mapID }) => {
                     <MapPin position={spot.position} color='red' size={40} />
                 )}
                 {spot && placesService && (
-                    <SpotDetails service={placesService} placeID={spot.placeID} handleClose={() => setSpot(null)} />
+                    <SpotDetails service={placesService} position={spot.position} placeID={spot.placeID} handleClose={() => setSpot(null)} />
                 )}
 
             </GoogleMap>

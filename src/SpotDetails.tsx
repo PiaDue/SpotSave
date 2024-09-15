@@ -1,10 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
+import { usePins } from './contexts/PinContext';
 
 type PlacesService = google.maps.places.PlacesService;
 type PlaceResult = google.maps.places.PlaceResult;
+type LatLngLiteral = google.maps.LatLngLiteral;
 
 interface SpotDetailsProps {
     service: PlacesService;
+    position: LatLngLiteral;
     placeID: string;
     handleClose: () => void;
 }
@@ -15,7 +18,8 @@ interface SpotDetailsProps {
         - show photos
 */
 
-const SpotDetails: React.FC<SpotDetailsProps> = ({ service, placeID, handleClose }) => {
+const SpotDetails: React.FC<SpotDetailsProps> = ({ service, position, placeID, handleClose }) => {
+    const { addPin } = usePins();
     const [placeDetails, setPlaceDetails] = useState<PlaceResult | null>(null);
 
     const request = {
@@ -34,12 +38,23 @@ const SpotDetails: React.FC<SpotDetailsProps> = ({ service, placeID, handleClose
         });
     }, [placeID]);
 
+    const handleSave = async () => {
+        const newPin = {
+            position: position,
+            placeID: placeID,
+            name: placeDetails?.name
+        };
+        console.log('New Pin:', newPin);
+        await addPin(newPin);
+    };
+
+
     return (
         <div className="place-details-container">
             {placeDetails && (
                 <div>
                     <div className='d-flex justify-content-end'>
-                        <button type="button" className="btn " aria-label="Save">
+                        <button type="button" onClick={handleSave} className="btn " aria-label="Save">
                             <i className="bi bi-pin-angle"></i>
                         </button>
                         <button type="button" onClick={handleClose} className="btn" aria-label="Close">

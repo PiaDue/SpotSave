@@ -9,6 +9,7 @@ interface Pin {
 interface PinContextType {
     pins: Pin[];
     fetchPins: () => Promise<void>;
+    addPin: (pin: Pin) => Promise<void>;
 }
 
 const PinContext = createContext<PinContextType | undefined>(undefined);
@@ -34,10 +35,28 @@ export const PinProvider = ({ children }: { children: ReactNode }) => {
         };
     }, []);
 
+    const addPin = useCallback(async (pin: Pin) => {
+        try {
+            const response = await fetch('http://localhost:5001/pins', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(pin)
+            });
+            const data = await response.json();
+            setPins(prevPins => [...prevPins, data]);
+        }
+        catch (error) {
+            console.error('Failed to add Pin.');
+        };
+    }, []);
+
     return (
         <PinContext.Provider value={{
             pins,
-            fetchPins
+            fetchPins,
+            addPin
         }}>
             {children}
         </PinContext.Provider>
