@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { GoogleMap, Marker } from "@react-google-maps/api";
+import { usePins } from './contexts/PinContext';
 import MapPin from './MapPin';
 import Search from './Search';
 import SpotDetails from './SpotDetails';
@@ -27,7 +28,7 @@ interface Pin {
 */
 
 const Map: React.FC<MapProps> = ({ mapID }) => {
-    const [pins, setPins] = useState<Pin[]>([]);
+    const { pins, fetchPins } = usePins();
     const [spot, setSpot] = useState<Pin | null>(null);
     const [error, setError] = useState<string | null>(null);
     const mapRef = useRef<GoogleMap>();
@@ -45,17 +46,9 @@ const Map: React.FC<MapProps> = ({ mapID }) => {
         fetchPins();
     }, []);
 
-
-    const fetchPins = async () => {
-        try {
-            const response = await fetch('http://localhost:5001/pins');
-            const data = await response.json();
-            setPins(data);
-        }
-        catch (error) {
-            setError('Failed to fetch Pin Data.');
-        };
-    };
+    useEffect(() => {
+        console.log('Pins:', pins);
+    }, [pins]);
 
     if (error) return <div>{error}</div>;
 

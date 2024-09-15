@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import MapContainer from './MapContainer';
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { PinProvider } from './contexts/PinContext';
 
 const App: React.FC = () => {
   const [apiKey, setApiKey] = useState<string | null>(null);
@@ -31,9 +32,11 @@ const App: React.FC = () => {
   if (!apiKey || !mapID) return <div>Missing API Key or Map ID</div>;
 
   return (
-    <div className="App">
-      <MapContainer apiKey={apiKey} mapID={mapID} />
-    </div>
+    <PinProvider>
+      <div className="App">
+        <MapContainer apiKey={apiKey} mapID={mapID} />
+      </div>
+    </PinProvider>
   );
 }
 
