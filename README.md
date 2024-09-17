@@ -9,13 +9,17 @@ A simple web application to save your favortie spots on a map
 - [x]  Show pins on the map
 - [x]  search for a location + show it on the map
 - [x]  show location details
-- [ ]  create new pins
 - [ ]  Show the current location
-- [ ]  Add a pin to the map
-- [ ]  Give pins a name
+- [ ]  click on map -> show spot details
+- [x]  add new pins to the map
+- [x]  delete pins from the map
 - [x]  Show a details for each pin
 - [ ]  Group pins by category
 - [ ]  Group pins by city or country
+- [ ]  create pin collections (name, color)
+- [ ]  add pins to a collection
+- [ ]  only show pins from a specific collection
+- [ ]  mobile version
 
 
 ## Technologies
@@ -35,7 +39,9 @@ A simple web application to save your favortie spots on a map
 {
     "pins": [{
         "position": {"lat": number, "lng": number},
-        "placeID": string
+        "placeID": string,
+        "name": string,
+        "id": string,
     }],
     "mapConfig": {
         "googleMapsApiKey": string,

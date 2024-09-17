@@ -14,17 +14,16 @@ interface MapProps {
 }
 
 interface Pin {
+    id?: string;
     position: LatLngLiteral;
     placeID: string;
 }
 
 /* TODO:  
         - save spots to local storage -> show pin on map
+            - red pin always on top
+        - click on map to show spot details
         - create collections
-        - save spots to collections 
-        - show collections on map
-        - show current location
-        - mobile view
 */
 
 const Map: React.FC<MapProps> = ({ mapID }) => {

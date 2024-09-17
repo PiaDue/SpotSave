@@ -19,7 +19,7 @@ interface SpotDetailsProps {
 */
 
 const SpotDetails: React.FC<SpotDetailsProps> = ({ service, position, placeID, handleClose }) => {
-    const { addPin } = usePins();
+    const { pins, addPin, removePin, isPinned } = usePins();
     const [placeDetails, setPlaceDetails] = useState<PlaceResult | null>(null);
 
     const request = {
@@ -48,15 +48,39 @@ const SpotDetails: React.FC<SpotDetailsProps> = ({ service, position, placeID, h
         await addPin(newPin);
     };
 
+    const handleDelete = async () => {
+        // Find the pin to delete
+        const pinToDelete = pins.find(pin => pin.placeID === placeID);
+
+        if (pinToDelete) {
+            await removePin(pinToDelete);
+        }
+    }
+
+    const pinButton = () => {
+        if (!isPinned(placeID)) {
+            return (
+                <button type="button" onClick={handleSave} className="btn " aria-label="Save">
+                    <i className="bi bi-pin-angle"></i>
+                </button>
+            )
+        } else {
+            return (
+                <button type="button" onClick={handleDelete} className="btn " aria-label="Delete">
+                    <i className="bi bi-pin-angle-fill"></i>
+                </button>
+            )
+        }
+
+    }
+
 
     return (
         <div className="place-details-container">
             {placeDetails && (
                 <div>
                     <div className='d-flex justify-content-end'>
-                        <button type="button" onClick={handleSave} className="btn " aria-label="Save">
-                            <i className="bi bi-pin-angle"></i>
-                        </button>
+                        {pinButton()}
                         <button type="button" onClick={handleClose} className="btn" aria-label="Close">
                             <i className="bi bi-x-lg"></i>
                         </button>
